@@ -26,20 +26,20 @@ void make(int numset, int assoc, struct node ** head){
 		
 		}
 
-int fulladd(unsigned long input, int associates){/*this method will add stuff for fully associates*/
+int fulladd(unsigned long input, int associate){/*this method will add stuff for fully associates*/
 		int i = 0; 
 		input = input >> offset; 
 		struct node * temp = fullas[i];
 		if(temp==NULL){\
 			temp = malloc(sizeof(struct node));
 			temp->tag = input; 
-			temp->frequency = nemcount;
+			temp->frequency = memcount;
 			temp->next = NULL;
 			return 1;			
 			}
 			i++;
 
-		while(i<associates){
+		while(i<associate){
 			if(temp->next==NULL){
 				temp->next = malloc(sizeof(struct node));
 				temp = temp->next; 
@@ -56,7 +56,7 @@ int fulladd(unsigned long input, int associates){/*this method will add stuff fo
 		
 		}
 	
-	int add(unsigned long input, int associates, int numsets, struct node ** head){/*adds a node, if it is full, it will return 0 if added, 1*/
+	int add(unsigned long input, int associate, int numsets, struct node ** head){/*adds a node, if it is full, it will return 0 if added, 1*/
 		int i = 0; 
 		unsigned long tmp = input;
 		tmp = tmp>> offset;
@@ -67,18 +67,16 @@ int fulladd(unsigned long input, int associates){/*this method will add stuff fo
 			temp = malloc(sizeof(struct node));
 			temp->tag = tmp;
 			temp->frequency = memcount;
-			totalcap--;
 			temp->next = NULL;
 			return 1;		
 		}
 		i++;
-		while(i<associates){
+		while(i<associate){
 			if(temp->next==NULL){
 				temp->next= malloc(sizeof(struct node));
 				temp= temp->next;
 				temp->tag = tmp;
 				temp->next= NULL;
-				totalcap--;
 				temp->frequency =memcount;
 				return 1;
 				}
@@ -115,21 +113,21 @@ int fulladd(unsigned long input, int associates){/*this method will add stuff fo
 	return 0;
 }
 
-void replacement(unsigned long upd, int numset,int associates,struct node ** head, char*type){
+void replacement(unsigned long upd, int numset,int associate,struct node ** head, char*type){
 	unsigned long tmp = upd;
 	tmp = tmp >> offset;
 	int index = tmp % numset; 
 	tmp = tmp >> check(numset);
 	struct node * temp = head[index]; 
 	if(temp == NULL){
-		add(upd, numset,associates,head);
+		add(upd, numset,associate,head);
 		return;
 		}
 	else{
 		if(strcmp(type,"FIFO")==0){/*FIFO replacement*/
 			head[index]=head[index]->next;
 			free(temp);
-			add(upd,associates,numset,head);
+			add(upd,associate,numset,head);
 			return;	}
 
 		else{/*for LRU*/
@@ -144,7 +142,7 @@ void replacement(unsigned long upd, int numset,int associates,struct node ** hea
 					if(temp->frequency==lowest){/*delete the head*/
 						head[index]= head[index]->next;
 						free(temp);
-						add(upd,associates,numset,head);
+						add(upd,associate,numset,head);
 						return;					
 						}
 				else{/*not deleting the head*/
@@ -154,12 +152,12 @@ void replacement(unsigned long upd, int numset,int associates,struct node ** hea
 						low = temp->next;
 						temp->next = temp->next->next;
 						free(low);
-						add(upd,associates,numset,head);
+						add(upd,associate,numset,head);
 						return;
 					}
 					else{
 						free(temp);
-						add(upd,associates,numset,head);
+						add(upd,associate,numset,head);
 						return;
 						}
 					}
@@ -176,6 +174,26 @@ void replacement(unsigned long upd, int numset,int associates,struct node ** hea
 		index = upd % numsets;
 		return index;
 		}
-
-/*show how to free stuff*/
 	
+	void fre(struct node ** head, int numset, int associate){
+/*show how to free stuff*/
+
+		int i =0;int d;
+		struct node * temp;
+		struct node * next;
+		while(i<numset){
+			temp = head[i];
+				d=0;
+
+				while(d<associate&&temp!=NULL){
+						next = temp->next;
+						free(temp);
+						temp= next;
+						d++;					
+					}
+					i++;	
+			}
+
+			free(head);
+
+	}
