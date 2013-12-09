@@ -18,20 +18,21 @@ int check(int che){/*check if provided input is the power of 2*/
 	
 	}
 
-void make(){
+/*struct node ** make(int numset){
 		/*so we know that this would be the offset*/
 		/*setting number of rows*/
 			
 		/*head=malloc(sizeof(struct node*)*numset);*/
-		l1 = malloc(sizeof(struct node*)*numset1);
-		l2 = malloc(sizeof(struct node*)*numset2);
-		l3 = malloc(sizeof(struct node*)*numset3);
-		if(associates>1)
-			fullas = malloc(sizeof(struct node*));
+	/*	struct node ** head = malloc(sizeof(struct node*)*numset);
+		return head;
+		//l2 = malloc(sizeof(struct node*)*numset2);
+		//l3 = malloc(sizeof(struct node*)*numset3);
+		//if(associates>1)
+		//	fullas = malloc(sizeof(struct node*));
 		
-		}
+		}*/
 
-int fulladd(unsigned long input, int associate){/*this method will add stuff for fully associates*/
+int fulladd(unsigned long input, int associate, struct node ** fullas){/*this method will add stuff for fully associates*/
 		int i = 0; 
 		input = input >> offset; 
 		struct node * temp = fullas[i];
@@ -63,7 +64,7 @@ int fulladd(unsigned long input, int associate){/*this method will add stuff for
 		
 		}
 	
-int addl1(unsigned long input, int associate, int numsets){/*adds a node, if it is full, it will return 0 if added, 1*/
+int addl1(unsigned long input, int associate, int numsets, struct node ** l1){/*adds a node, if it is full, it will return 0 if added, 1*/
 		int i = 0; 
 		unsigned long tmp = input;
 		tmp = tmp>> offset;
@@ -101,8 +102,8 @@ int addl1(unsigned long input, int associate, int numsets){/*adds a node, if it 
 		return 0;
 
 	}
-int addl2(unsigned long input, int associate, int numsets){/*adds a node, if it is full, it will return 0 if added, 1*/
-		int i = 0; 
+/*int addl2(unsigned long input, int associate, int numsets, struct node ** l2){adds a node, if it is full, it will return 0 if added, 1*/
+	/*	int i = 0; 
 		unsigned long tmp = input;
 		tmp = tmp>> offset;
 		int index = tmp % numsets;
@@ -139,8 +140,8 @@ int addl2(unsigned long input, int associate, int numsets){/*adds a node, if it 
 		return 0;
 
 	}
-int addl3(unsigned long input, int associate, int numsets){/*adds a node, if it is full, it will return 0 if added, 1*/
-		int i = 0; 
+int addl3(unsigned long input, int associate, int numsets, struct node ** l3){/*adds a node, if it is full, it will return 0 if added, 1*/
+	/*	int i = 0; 
 		unsigned long tmp = input;
 		tmp = tmp>> offset;
 		int index = tmp % numsets;
@@ -176,9 +177,9 @@ int addl3(unsigned long input, int associate, int numsets){/*adds a node, if it 
 	//	printf("l3 added node: %lx",temp->data); 
 		return 0;
 
-	}
+	}*/
 	
-int findl1(int setsize, unsigned long upd){/*true if it is found and false on if it was not found*/
+int findl1(int setsize, unsigned long upd, struct node ** l1){/*true if it is found and false on if it was not found*/
 		unsigned long tmp = upd;
 		tmp = tmp>> offset;
 		int index = tmp % setsize;
@@ -203,8 +204,8 @@ int findl1(int setsize, unsigned long upd){/*true if it is found and false on if
 			}
 	return 0;
 }
-int findl2(int setsize, unsigned long upd){/*true if it is found and false on if it was not found*/
-		unsigned long tmp = upd;
+/*int findl2(int setsize, unsigned long upd, struct node ** l2){/*true if it is found and false on if it was not found*/
+	/*	unsigned long tmp = upd;
 		tmp = tmp>> offset;
 		int index = tmp % setsize;
 		tmp = tmp >> check(setsize);
@@ -228,8 +229,8 @@ int findl2(int setsize, unsigned long upd){/*true if it is found and false on if
 	return 0;
 }
 
-int findl3(int setsize, unsigned long upd){/*true if it is found and false on if it was not found*/
-		unsigned long tmp = upd;
+/*int findl3(int setsize, unsigned long upd, struct node ** l3){/*true if it is found and false on if it was not found*/
+	/*	unsigned long tmp = upd;
 		tmp = tmp>> offset;
 		int index = tmp % setsize;
 		tmp = tmp >> check(setsize);
@@ -251,8 +252,8 @@ int findl3(int setsize, unsigned long upd){/*true if it is found and false on if
 				}
 			}
 	return 0;
-}
-int findfull(int setsize, unsigned long upd){/*true if it is found and false on if it was not found*/
+}*/
+int findfull(int setsize, unsigned long upd, struct node ** fullas){/*true if it is found and false on if it was not found*/
 		unsigned long tmp = upd;
 		tmp = tmp>> offset;
 		int index = tmp % setsize;
@@ -278,21 +279,21 @@ int findfull(int setsize, unsigned long upd){/*true if it is found and false on 
 }
 
 
-void replacementl1(unsigned long upd, int numset,int associate,char*type){
+void replacementl1(unsigned long upd, int numset,int associate,char*type, struct node **l1){
 	unsigned long tmp = upd;
 	tmp = tmp >> offset;
 	int index = tmp % numset; 
 	tmp = tmp >> check(numset);
 	struct node * temp = l1[index]; 
 	if(temp == NULL){
-		addl1(upd,associate,numset);
+		addl1(upd,associate,numset,l1);
 		return;
 		}
 	else{
 		if(strcmp(type,"FIFO")==0){/*FIFO replacement*/
 			l1[index]=l1[index]->next;
 			free(temp);
-			addl1(upd,associate,numset);
+			addl1(upd,associate,numset,l1);
 			return;	}
 
 		else{/*for LRU*/
@@ -307,7 +308,7 @@ void replacementl1(unsigned long upd, int numset,int associate,char*type){
 					if(temp->frequency==lowest){/*delete the head*/
 						l1[index]= l1[index]->next;
 						free(temp);
-						addl1(upd,associate,numset);
+						addl1(upd,associate,numset,l1);
 						return;					
 						}
 				else{/*not deleting the head*/
@@ -317,12 +318,12 @@ void replacementl1(unsigned long upd, int numset,int associate,char*type){
 						low = temp->next;
 						temp->next = temp->next->next;
 						free(low);
-						addl1(upd,associate,numset);
+						addl1(upd,associate,numset,l1);
 						return;
 					}
 					else{
 						free(temp);
-						addl1(upd,associate,numset);
+						addl1(upd,associate,numset,l1);
 						return;
 						}
 					}
@@ -332,51 +333,51 @@ void replacementl1(unsigned long upd, int numset,int associate,char*type){
 		}	
 	
 	}
-void replacementl2(unsigned long upd, int numset,int associate, char*type){
+/*void replacementl2(unsigned long upd, int numset,int associate, char*type, struct node ** l2){
 	unsigned long tmp = upd;
 	tmp = tmp >> offset;
 	int index = tmp % numset; 
 	tmp = tmp >> check(numset);
 	struct node * temp = l2[index]; 
 	if(temp == NULL){
-		addl2(upd,associate,numset);
+		addl2(upd,associate,numset,l2);
 		return;
 		}
 	else{
-		if(strcmp(type,"FIFO")==0){/*FIFO replacement*/
-			l2[index]=l2[index]->next;
+		if(strcmp(type,"FIFO")==0){/FIFO replacement*/
+	/*		l2[index]=l2[index]->next;
 			free(temp);
-			addl2(upd,associate,numset);
+			addl2(upd,associate,numset,l2);
 			return;	}
 
-		else{/*for LRU*/
-			int lowest = temp->frequency;
+		else{*for LRU*/
+		/*	int lowest = temp->frequency;
 			struct node * low = temp; 
 				while(temp!=NULL){/*finding the least recently used hex*/
-					if(temp->frequency < lowest)
+			/*		if(temp->frequency < lowest)
 						lowest = temp->frequency; 						
 						temp= temp->next;					
 					}
 				temp = l2[index];/*so temp equals the head of the file*/
-					if(temp->frequency==lowest){/*delete the head*/
-						l2[index]= l2[index]->next;
+				/*	if(temp->frequency==lowest){/*delete the head*/
+					/*	l2[index]= l2[index]->next;
 						free(temp);
-						addl2(upd,associate,numset);
+						addl2(upd,associate,numset,l2);
 						return;					
 						}
 				else{/*not deleting the head*/
-					while(temp->next!=NULL&&temp->next->frequency!=lowest)
+				/*	while(temp->next!=NULL&&temp->next->frequency!=lowest)
 						temp= temp->next;/*end of this while loop, temp next would be be the least used*/
-					if(temp->next!=NULL){	
+				/*	if(temp->next!=NULL){	
 						low = temp->next;
 						temp->next = temp->next->next;
 						free(low);
-						addl2(upd,associate,numset);
+						addl2(upd,associate,numset,l2);
 						return;
 					}
 					else{
 						free(temp);
-						addl2(upd,associate,numset);
+						addl2(upd,associate,numset,l2);
 						return;
 						}
 					}
@@ -387,51 +388,51 @@ void replacementl2(unsigned long upd, int numset,int associate, char*type){
 	
 	}
 
-void replacementl3(unsigned long upd, int numset,int associate, char*type){
+void replacementl3(unsigned long upd, int numset,int associate, char*type, struct node ** l3){
 	unsigned long tmp = upd;
 	tmp = tmp >> offset;
 	int index = tmp % numset; 
 	tmp = tmp >> check(numset);
 	struct node * temp = l3[index]; 
 	if(temp == NULL){
-		addl3(upd,associate,numset);
+		addl3(upd,associate,numset,l3);
 		return;
 		}
 	else{
 		if(strcmp(type,"FIFO")==0){/*FIFO replacement*/
-			l3[index]=l3[index]->next;
+		/*	l3[index]=l3[index]->next;
 			free(temp);
-			addl3(upd,associate,numset);
+			addl3(upd,associate,numset,l3);
 			return;	}
 
 		else{/*for LRU*/
-			int lowest = temp->frequency;
+		/*	int lowest = temp->frequency;
 			struct node * low = temp; 
 				while(temp!=NULL){/*finding the least recently used hex*/
-					if(temp->frequency < lowest)
+			/*		if(temp->frequency < lowest)
 						lowest = temp->frequency; 						
 						temp= temp->next;					
 					}
 				temp = l3[index];/*so temp equals the head of the file*/
-					if(temp->frequency==lowest){/*delete the head*/
-						l3[index]= l3[index]->next;
+				/*	if(temp->frequency==lowest){/*delete the head*/
+					/*	l3[index]= l3[index]->next;
 						free(temp);
-						addl3(upd,associate,numset);
+						addl3(upd,associate,numset,l3);
 						return;					
 						}
 				else{/*not deleting the head*/
-					while(temp->next!=NULL&&temp->next->frequency!=lowest)
+					/*while(temp->next!=NULL&&temp->next->frequency!=lowest)
 						temp= temp->next;/*end of this while loop, temp next would be be the least used*/
-					if(temp->next!=NULL){	
+				/*	if(temp->next!=NULL){	
 						low = temp->next;
 						temp->next = temp->next->next;
 						free(low);
-						addl3(upd,associate,numset);
+						addl3(upd,associate,numset,l3);
 						return;
 					}
 					else{
 						free(temp);
-						addl3(upd,associate,numset);
+						addl3(upd,associate,numset,l3);
 						return;
 						}
 					}
@@ -440,23 +441,23 @@ void replacementl3(unsigned long upd, int numset,int associate, char*type){
 
 		}	
 	
-	}
+	}*/
 
-void replacementfullas(unsigned long upd, int numset,int associate, char*type){
+void replacementfullas(unsigned long upd, int numset,int associate, char*type, struct node** fullas){
 	unsigned long tmp = upd;
 	tmp = tmp >> offset;
 	int index = tmp % numset; 
 	tmp = tmp >> check(numset);
 	struct node * temp = fullas[index]; 
 	if(temp == NULL){
-		fulladd(upd,associate);
+		fulladd(upd,associate,fullas);
 		return;
 		}
 	else{
 		if(strcmp(type,"FIFO")==0){/*FIFO replacement*/
 			fullas[index]=fullas[index]->next;
 			free(temp);
-			fulladd(upd,associate);
+			fulladd(upd,associate,fullas);
 			return;	}
 
 		else{/*for LRU*/
@@ -471,7 +472,7 @@ void replacementfullas(unsigned long upd, int numset,int associate, char*type){
 					if(temp->frequency==lowest){/*delete the head*/
 						fullas[index]= fullas[index]->next;
 						free(temp);
-						fulladd(upd,associate);
+						fulladd(upd,associate,fullas);
 						return;					
 						}
 				else{/*not deleting the head*/
@@ -481,12 +482,12 @@ void replacementfullas(unsigned long upd, int numset,int associate, char*type){
 						low = temp->next;
 						temp->next = temp->next->next;
 						free(low);
-						fulladd(upd,associate);
+						fulladd(upd,associate,fullas);
 						return;
 					}
 					else{
 						free(temp);
-						fulladd(upd,associate);
+						fulladd(upd,associate,fullas);
 						return;
 						}
 					}
@@ -505,7 +506,7 @@ int indexret(unsigned long upd, int numsets){
 		return index;
 		}
 	
-void fre(){
+void fre(struct node **l1, struct node ** l2, struct node ** l3, struct node ** fullas){
 /*show how to free stuff*/
 
 	int i =0;int d;
@@ -556,7 +557,7 @@ void fre(){
 			}
 
 			free(l3);/*for l3*/
-if(numset1>1){
+
 i =0;	
 			temp = fullas[i];
 				d=0;
@@ -568,7 +569,7 @@ i =0;
 						d++;					
 					}
 						
-			}
+			
 
 			free(fullas);/*for fully associative*/
 
