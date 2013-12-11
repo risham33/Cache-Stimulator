@@ -18,57 +18,28 @@ int check(int che){/*check if provided input is the power of 2*/
 	
 	}
 
-/*struct node ** make(int numset){
-		*so we know that this would be the offset*/
-		/*setting number of rows*/
-			
-		/*head=malloc(sizeof(struct node*)*numset);*/
-	/*	struct node ** head = malloc(sizeof(struct node*)*numset);
-		return head;
-		//l2 = malloc(sizeof(struct node*)*numset2);
-		//l3 = malloc(sizeof(struct node*)*numset3);
-		//if(associates>1)
-		//	fullas = malloc(sizeof(struct node*));
-		
-		}*/
 
-int fulladd(unsigned long input, int associate, struct node ** fullas){/*this method will add stuff for fully associates*/
+int fulladd(unsigned long input,struct node ** fullas){/*this method will add stuff for fully associates*/
 		int i = 0; 
 		unsigned long tmp = input;
 		tmp = tmp>> offset;
 		
-		tmp = tmp>>check(numset1);
-			struct node *temp = fullas[0];
-	//		fullas[0]=temp;
-//		printf("%d",index);
+		//tmp = tmp>>check(numset1);
+	
 		
-	//	if(temp==NULL){
-	//	  printf("here!");
-		 // temp = malloc(sizeof(struct node));
-		if(temp->frequency==0){
-			temp->tag = tmp;
-			temp->frequency = memcount;
-		//	printf("\n fullas %lx",temp->tag);
-			return 1;		
-		}
-		temp= temp->next;
-		i++;
-while(i<associate){
-		 //if(temp->next==NULL){
-			if(temp->frequency==0){
-		//	temp->next= malloc(sizeof(struct node));
-			//	temp= temp->next;
-				temp->tag = tmp;
-			//	temp->next= NULL;
-				temp->frequency =memcount;
+while(i<fullasso){
+		 
+			if(fullas[0][i].frequency==0){
+		
+				fullas[0][i].tag = tmp;
+			
+				fullas[0][i].frequency =memcount;
 				return 1;
 				}
-		printf("\nl1 full add data %lx", temp->tag);		
-				temp= temp->next;
 				i++;
 			}
 				
-		
+		replacementfullas(unsigned long upd, struct node ** fullas);
 		return 0;
 
 
@@ -78,550 +49,293 @@ while(i<associate){
 
 
 
-/*	int i = 0; 
-		input = input >> offset; 
-		input = input >> check(numset1);
-		struct node * temp = fullas[i];
-		
-		if(temp==NULL){
-			temp = malloc(sizeof(struct node));
-			fullas[0]=temp;
-			temp->tag = input; 
-			temp->frequency = memcount;
-			temp->next = NULL;
-			return 1;			
-		//	printf("\n%lx first",temp->tag);
-			}
-			i++;
-
-		while(i<associate){
-			if(temp->next==NULL){
-				temp->next = malloc(sizeof(struct node));
-				temp = temp->next; 
-				temp->tag =input;
-				temp->next = NULL;
-				temp->frequency = memcount;
-				return 1;				
-								}
-			
-			//printf("\n%lx",temp->tag);
-			temp = temp->next;
-			i++;			
-			}
-		
-		return 0;
-		*/
-		//}
-	
-int addl1(unsigned long input, int associate, int numsets, struct node ** l1){/*adds a node, if it is full, it will return 0 if added, 1*/
+int addl1(unsigned long input,struct node ** l1){/*adds a node, if it is full, it will return 0 if added, 1*/
 		int i = 0; 
 		unsigned long tmp = input;
-		tmp = tmp>> offset;
-		int index = tmp%numsets;
-		tmp = tmp>>check(numsets);
-			struct node *temp = l1[index];
-//			l1[index]=temp;
-//		printf("%d",index);
-		
-//		if(temp==NULL){
-	//	  printf("here!");
-	if(temp->frequency==0){
-	//	temp = malloc(sizeof(struct node));
-		//	l1[index]=temp;
-			temp->tag = tmp;
-			temp->frequency = memcount;
-		//	temp->next = NULL;
-			return 1;		
-		}
-		i++; temp = temp->next;
-		while(i<associate){
-
-		// if(temp->next==NULL){
-			if(temp->frequency==0){
-			//temp->next= malloc(sizeof(struct node));
-				//temp= temp->next;
-				temp->tag = tmp;
-			//	temp->next= NULL;
-				temp->frequency =memcount;
-				return 1;
-				}
-		//printf("\nl1 data %lx", temp->tag);		
-				temp= temp->next;
-				i++;
-			}
-				
-		
-		return 0;
-
-	}
-/*int addl2(unsigned long input, int associate, int numsets, struct node ** l2){adds a node, if it is full, it will return 0 if added, 1*/
-	/*	int i = 0; 
-		unsigned long tmp = input;
-		tmp = tmp>> offset;
-		int index = tmp % numsets;
-		tmp = tmp >> check(numsets);
-		struct node *temp = l2[index];
-		l2[index]=temp;
-//		printf("l2 add %d",index);
-		
-		if(temp==NULL){
-//		  printf("here!");
-		  temp = malloc(sizeof(struct node));
-			l2[index]=temp;
-			temp->tag = tmp;
-			temp->frequency = memcount;
-			temp->next = NULL;
-			return 1;		
-		}
-		i++;
-		while(i<associate){
-					 
-		 if(temp->next==NULL){
-				temp->next= malloc(sizeof(struct node));
-				temp= temp->next;
-				temp->tag = tmp;
-				temp->next= NULL;
-				temp->frequency =memcount;
-				return 1;
-				}
-		//		printf("l2 added node: %lx",temp->tag);temp= temp->next;
-				i++;
-			}
-				
-		
-		return 0;
-
-	}
-int addl3(unsigned long input, int associate, int numsets, struct node ** l3){/*adds a node, if it is full, it will return 0 if added, 1*/
-	/*	int i = 0; 
-		unsigned long tmp = input;
-		tmp = tmp>> offset;
-		int index = tmp % numsets;
-		tmp = tmp >> check(numsets);
-		struct node *temp = l3[index];
-		l3[index]=temp;
-	//	printf("l3 add %d",index);
-		
-		if(temp==NULL){
-		//  printf("here!");
-		  temp = malloc(sizeof(struct node));
-			l3[index]=temp;
-			temp->tag = tmp;
-			temp->frequency = memcount;
-			temp->next = NULL;
-			return 1;		
-		}
-		i++;
-		while(i<associate){
-		 	
-		 if(temp->next==NULL){
-				temp->next= malloc(sizeof(struct node));
-				temp= temp->next;
-				temp->tag = tmp;
-				temp->next= NULL;
-				temp->frequency =memcount;
-				return 1;
-				}
-	//			printf("l3 added node: %lx\n",temp->tag); 	temp= temp->next;
-				i++;
-			}
-				
-	//	printf("l3 added node: %lx",temp->data); 
-		return 0;
-
-	}*/
-	
-int findl1(int setsize, unsigned long upd, struct node ** l1){/*true if it is found and false on if it was not found*/
-		unsigned long tmp = upd;
-		tmp = tmp>> offset;
-		int index = tmp % setsize;
-		tmp = tmp >> check(setsize);
-	//	printf("%d",index);
-	//	if(l1[index]!=NULL){
-	//	printf("I entered here\n");
-	//if(l1[index]->frequency!=0){
-	struct node* temp = l1[index];
-			while (temp!=NULL){
-				
-					if(temp->frequency!=0 && temp->tag==tmp){
-							
-						temp->frequency= memcount;
-						
-						return 1;
-						}
-					//	else{
-							temp= temp->next;						
-					//	}
-					
-				}
-	//		}
-	return 0;
-}
-/*int findl2(int setsize, unsigned long upd, struct node ** l2){/*true if it is found and false on if it was not found*/
-	/*	unsigned long tmp = upd;
-		tmp = tmp>> offset;
-		int index = tmp % setsize;
-		tmp = tmp >> check(setsize);
-	//	printf("%d",index);
-		if(l2[index]!=NULL){
-		struct node* temp = l2[index];
-			while (temp!=NULL){
-				
-					if(temp->tag==tmp){
-							
-						temp->frequency= memcount;
-						
-						return 1;
-						}
-						else{
-							temp= temp->next;						
-						}
-					
-				}
-			}
-	return 0;
-}
-
-*int findl3(int setsize, unsigned long upd, struct node ** l3){*true if it is found and false on if it was not found*/
-	/*	unsigned long tmp = upd;
-		tmp = tmp>> offset;
-		int index = tmp % setsize;
-		tmp = tmp >> check(setsize);
-//		printf("%d",index);
-		if(l3[index]!=NULL){
-		struct node* temp = l3[index];
-			while (temp!=NULL){
-				
-					if(temp->tag==tmp){
-							
-						temp->frequency= memcount;
-						
-						return 1;
-						}
-						else{
-							temp= temp->next;						
-						}
-					
-				}
-			}
-	return 0;
-}*/
-int findfull(int setsize, unsigned long upd, struct node ** fullas){/*true if it is found and false on if it was not found*/
-		unsigned long tmp = upd;
-		tmp = tmp>> offset;
-		int index = tmp % setsize;
+		tmp = tmp >> offset;
+		int index = tmp % numset1;
 		tmp = tmp >> check(numset1);
-	//	printf("%d",index);
-//		if(fullas[index]!=NULL){
-		struct node* temp = fullas[index];
-			while (temp!=NULL){
+			
+	while(i<associates){/*adding*/
+
+		if(l1[index][i].frequency==0){
+				l1[index][i].tag = tmp;
+				l1[index][i].frequency =memcount;
+				coldmiss++;
+				return 1;
+				}
+						i++;
+			}
 				
-					if(temp->frequency!=0 && temp->tag==tmp){
+			replacementl1(unsigned long input,struct node ** l1);
+		return 0;
+
+	}
+int addl2(unsigned long input,struct node ** l2){/*adds a node, if it is full, it will return 0 if added, 1*/
+		int i = 0; 
+		unsigned long tmp = input;
+		tmp = tmp >> offset;
+		int index = tmp % numset2;
+		tmp = tmp >> check(numset2);
+			
+	while(i<as2){/*adding*/
+
+		if(l2[index][i].frequency==0){
+				l2[index][i].tag = tmp;
+				l2[index][i].frequency =memcount;
+				coldmiss2++;
+				return 1;
+				}
+						i++;
+			}
+				
+		replacementl2(unsigned long input,struct node ** l2);
+		return 0;
+
+	}
+int addl3(unsigned long input,struct node ** l3){/*adds a node, if it is full, it will return 0 if added, 1*/
+		int i = 0; 
+		unsigned long tmp = input;
+		tmp = tmp >> offset;
+		int index = tmp % numset3;
+		tmp = tmp >> check(numset3);
+			
+	while(i<as3){/*adding*/
+
+		if(l3[index][i].frequency==0){
+				l3[index][i].tag = tmp;
+				l3[index][i].frequency =memcount;
+				coldmiss3++;
+				return 1;
+				}
+						i++;
+			}
+				
+			replacementl3(unsigned long input,struct node ** l3);
+		return 0;
+
+	}	
+int findl1(int setsize, unsigned long upd, 	int associate, struct node ** l1){/*true if it is found and false on if it was not found*/
+		unsigned long tmp = upd;
+		tmp = tmp >> offset;
+		int index = tmp % setsize;
+		tmp = tmp >> check(setsize);
+	int i =0;
+	while (i<associate){
+				
+					if(l1[index][i].frequency!=0 && l1[index][i].tag==tmp){
 							
-						temp->frequency= memcount;
+						l1[index][i].frequency= memcount;
 						
 						return 1;
 						}
-					//	else{
-							temp= temp->next;						
-					//	}
-					
-			//	}
-			}
+					i++;						
+									
+				}
+	return 0;
+}
+
+int findfull(unsigned long upd, struct node ** fullas){/*true if it is found and false on if it was not found*/
+		unsigned long tmp = upd;
+		tmp = tmp>> offset;
+		//int index = tmp % setsize;
+		//tmp = tmp >> check(numset1);
+int i =0;
+while (i<fullasso){
+				
+			if(fullas[0][i].frequency!=0 && fullas[0][i].tag==tmp){
+							
+			fullas[0][i].frequency= memcount;
+						
+			return 1;
+						}
+					i++;
+					}
 	return 0;
 }
 
 
-void replacementl1(unsigned long upd, int numset,int associate,char*type, struct node **l1){
+void replacementl1(unsigned long upd, struct node **l1){
 	unsigned long tmp = upd;
 	tmp = tmp >> offset;
-	int index = tmp % numset; 
-	tmp = tmp >> check(numset);
-	struct node * temp = l1[index];
-	struct node * next = l1[index]->next;
-	//if(temp == NULL){
-		//addl1(upd,associate,numset,l1);
-		//return;
-	//	}
-	
-		if(strcmp(type,"FIFO")==0){/*FIFO replacement*/
-			//l1[index]=l1[index]->next;
-			//free(temp);
-				temp->frequency =0; 
-
-				while(next!=NULL){
-					temp->tag = next->tag;
-					temp->frequency=next->frequency;
-					temp = temp->next;
-					next = temp->next;				
-					}
-			temp->frequency=0;
-			addl1(upd,associate,numset,l1);
-			return;	}
-
-		else{/*for LRU*/
-			int lowest = temp->frequency;
-		//	struct node * low = temp; 
-				while(temp!=NULL){/*finding the least recently used hex*/
-					if(temp->frequency < lowest && temp->frequency!=0)
-						lowest = temp->frequency; 						
-						temp= temp->next;					
-					}
-				temp = l1[index];/*so temp equals the head of the file*/
-					if(temp->frequency==lowest){/*delete the head*/
-							l1[index]->tag = tmp;
-							l1[index]->frequency = memcount;					
-					//l1[index]= l1[index]->next;
-						//free(temp);
-						//addl1(upd,associate,numset,l1);
-						return;					
-						}
-				else{/*not deleting the head*/
-				//	while(temp->next!=NULL&&temp->next->frequency!=lowest)
-					while(temp!=NULL && temp->frequency!=lowest){
-					temp= temp->next;}
-					/*end of this while loop, temp next would be be the least used*/
-					//if(temp->next!=NULL){	
-					//	low = temp->next;
-					//	temp->next = temp->next->next;
-					//	free(low);
-					//	addl1(upd,associate,numset,l1);
-					temp->frequency = memcount;
-					temp->tag = tmp;
-						return;
-					}
-					//else{
-						//free(temp);
-						//addl1(upd,associate,numset,l1);
-						//return;
-					//	}
-					}
-			
-			}
-
-	//	}	
-	
-	
-/*void replacementl2(unsigned long upd, int numset,int associate, char*type, struct node ** l2){
-	unsigned long tmp = upd;
-	tmp = tmp >> offset;
-	int index = tmp % numset; 
-	tmp = tmp >> check(numset);
-	struct node * temp = l2[index]; 
-	if(temp == NULL){
-		addl2(upd,associate,numset,l2);
-		return;
-		}
-	else{
-		if(strcmp(type,"FIFO")==0){/FIFO replacement*/
-	/*		l2[index]=l2[index]->next;
-			free(temp);
-			addl2(upd,associate,numset,l2);
-			return;	}
-
-		else{*for LRU*/
-		/*	int lowest = temp->frequency;
-			struct node * lo w = temp; 
-				while(temp!=NULL){/*finding the least recently used hex*/
-			/*		if(temp->frequency < lowest)
-						lowest = temp->frequency; 						
-						temp= temp->next;					
-					}
-				temp = l2[index];/*so temp equals the head of the file*/
-				/*	if(temp->frequency==lowest){/*delete the head*/
-					/*	l2[index]= l2[index]->next;
-						free(temp);
-						addl2(upd,associate,numset,l2);
-						return;					
-						}
-				else{/*not deleting the head*/
-				/*	while(temp->next!=NULL&&temp->next->frequency!=lowest)
-						temp= temp->next;/*end of this while loop, temp next would be be the least used*/
-				/*	if(temp->next!=NULL){	
-						low = temp->next;
-						temp->next = temp->next->next;
-						free(low);
-						addl2(upd,associate,numset,l2);
-						return;
-					}
-					else{
-						free(temp);
-						addl2(upd,associate,numset,l2);
-						return;
-						}
-					}
-			
-			}
-
-		}	
-	
-	}
-
-void replacementl3(unsigned long upd, int numset,int associate, char*type, struct node ** l3){
-	unsigned long tmp = upd;
-	tmp = tmp >> offset;
-	int index = tmp % numset; 
-	tmp = tmp >> check(numset);
-	struct node * temp = l3[index]; 
-	if(temp == NULL){
-		addl3(upd,associate,numset,l3);
-		return;
-		}
-	else{
-		if(strcmp(type,"FIFO")==0){/*FIFO replacement*/
-		/*	l3[index]=l3[index]->next;
-			free(temp);
-			addl3(upd,associate,numset,l3);
-			return;	}
-
-		else{/*for LRU*/
-		/*	int lowest = temp->frequency;
-			struct node * low = temp; 
-				while(temp!=NULL){/*finding the least recently used hex*/
-			/*		if(temp->frequency < lowest)
-						lowest = temp->frequency; 						
-						temp= temp->next;					
-					}
-				temp = l3[index];/*so temp equals the head of the file*/
-				/*	if(temp->frequency==lowest){/*delete the head*/
-					/*	l3[index]= l3[index]->next;
-						free(temp);
-						addl3(upd,associate,numset,l3);
-						return;					
-						}
-				else{/*not deleting the head*/
-					/*while(temp->next!=NULL&&temp->next->frequency!=lowest)
-						temp= temp->next;/*end of this while loop, temp next would be be the least used*/
-				/*	if(temp->next!=NULL){	
-						low = temp->next;
-						temp->next = temp->next->next;
-						free(low);
-						addl3(upd,associate,numset,l3);
-						return;
-					}
-					else{
-						free(temp);
-						addl3(upd,associate,numset,l3);
-						return;
-						}
-					}
-			
-			}
-
-		}	
-	
-	}*/
-
-void replacementfullas(unsigned long upd, int numset,int associate, char*type, struct node** fullas){
-	unsigned long tmp = upd;
-	tmp = tmp >> offset;
-	int index = tmp % numset; 
+	int index = tmp % numset1; 
 	tmp = tmp >> check(numset1);
-	struct node * temp = fullas[0]; 
-	struct node * next = fullas[0]->next;
-	if(strcmp(type,"FIFO")==0){/*FIFO replacement*/
-			//l1[index]=l1[index]->next;
-			//free(temp);
-				temp->frequency =0; 
+	int i = 0;
+	int d=1;
+		if(replace==0){/*FIFO replacement*/
+			l1[index][i].frequency =0; 
 
-				while(next!=NULL){
-					temp->tag = next->tag;
-					temp->frequency=next->frequency;
-					temp = temp->next;
-					next = temp->next;				
+				while(d<associates){
+					l1[index][i].tag = l1[index][d].tag;
+					l1[index][i].frequency=l1[index][d].frequency;
+					i=d; d++;				
 					}
-			temp->frequency=0;
-			fulladd(upd,associate,fullas);
-			return;	}
+			l1[index][i].frequency=0;
+			l1[index][i].tag=0;
+			addl1(upd,l1);
+			return;}
 
 		else{/*for LRU*/
-			int lowest = temp->frequency;
-			//struct node * low = temp; 
-				while(temp!=NULL){/*finding the least recently used hex*/
-					if(temp->frequency < lowest&&temp->frequency!=0)
-						lowest = temp->frequency; 						
-						temp= temp->next;					
-					}
-				temp = fullas[index];/*so temp equals the head of the file*/
-					if(temp->frequency==lowest){/*delete the head*/
-							fullas[index]->tag = tmp;
-							fullas[index]->frequency = memcount;					
-					//l1[index]= l1[index]->next;
-						//free(temp);
-						//addl1(upd,associate,numset,l1);
-						return;					
+				i=0;
+			int lowest = l1[index][i].frequency;
+					while(i<associates){/*finding the least recently used hex*/
+						if(l1[index][i].frequency < lowest && l1[index][i].frequency!=0){
+							lowest = l1[index][i].frequency;} 						
+							i++;
+						}
+				i=0;
+				/*so temp equals the head of the file*/
+					if(l1[index][i].frequency==lowest){/*delete the head*/
+							l1[index][i].tag = tmp;
+							l1[index][i].frequency = memcount;					
+							return;					
 						}
 				else{/*not deleting the head*/
-				//	while(temp->next!=NULL&&temp->next->frequency!=lowest)
-					while(temp!=NULL && temp->frequency!=lowest){
-					temp= temp->next;}
-					/*end of this while loop, temp next would be be the least used*/
-					//if(temp->next!=NULL){	
-					//	low = temp->next;
-					//	temp->next = temp->next->next;
-					//	free(low);
-					//	addl1(upd,associate,numset,l1);
-					temp->frequency = memcount;
-					temp->tag = tmp;
+					while(i<associates && l1[index][i].frequency!=lowest){
+						i++;}
+						l1[index][i].frequency = memcount;
+						l1[index][i].tag = tmp;
 						return;
 					}
-					//else{
-						//free(temp);
-						//addl1(upd,associate,numset,l1);
-						//return;
-					//	}
-					}
-
-
-
-
-	/*if(temp == NULL){
-		fulladd(upd,associate,fullas);
-		return;
-		}
-	else{
-		if(strcmp(type,"FIFO")==0){/*FIFO replacement*/
-		/*	fullas[index]=fullas[index]->next;
-			free(temp);
-			fulladd(upd,associate,fullas);
-			return;	}
-
-		else{/*for LRU*/
-			/*int lowest = temp->frequency;
-			struct node * low = temp; 
-				while(temp!=NULL){/*finding the least recently used hex*/
-				/*	if(temp->frequency < lowest)
-						lowest = temp->frequency; 						
-						temp= temp->next;					
-					}
-				temp = fullas[index];/*so temp equals the head of the file*/
-				/*	if(temp->frequency==lowest){/*delete the head*/
-					/*	fullas[index]= fullas[index]->next;
-						free(temp);
-						fulladd(upd,associate,fullas);
-						return;					
-						}
-				else{/*not deleting the head*/
-				/*	while(temp->next!=NULL&&temp->next->frequency!=lowest)
-						temp= temp->next;/*end of this while loop, temp next would be be the least used*/
-				/*	if(temp->next!=NULL){	
-						low = temp->next;
-						temp->next = temp->next->next;
-						free(low);
-						fulladd(upd,associate,fullas);
-						return;
-					}
-					else{
-						free(temp);
-						fulladd(upd,associate,fullas);
-						return;
-						}
 					}
 			
 			}
 
-		}	
-	*/
+void replacementl2(unsigned long upd, struct node **l2){
+	unsigned long tmp = upd;
+	tmp = tmp >> offset;
+	int index = tmp % numset2; 
+	tmp = tmp >> check(numset2);
+	int i = 0;
+	int d=1;
+		if(replace==0){/*FIFO replacement*/
+			l2[index][i].frequency =0; 
+
+				while(d<as2){
+					l2[index][i].tag = l2[index][d].tag;
+					l2[index][i].frequency=l2[index][d].frequency;
+					i=d; d++;				
+					}
+			l2[index][i].frequency=0;
+			l2[index][i].tag=0;
+			addl2(upd,l2);
+			return;}
+
+		else{/*for LRU*/
+				i=0;
+			int lowest = l2[index][i].frequency;
+					while(i<as2){/*finding the least recently used hex*/
+						if(l2[index][i].frequency < lowest && l2[index][i].frequency!=0){
+							lowest = l2[index][i].frequency;} 						
+							i++;
+						}
+				i=0;
+				/*so temp equals the head of the file*/
+					if(l2[index][i].frequency==lowest){/*delete the head*/
+							l2[index][i].tag = tmp;
+							l2[index][i].frequency = memcount;					
+							return;					
+						}
+				else{/*not deleting the head*/
+					while(i<as2 && l2[index][i].frequency!=lowest){
+						i++;}
+						l2[index][i].frequency = memcount;
+						l2[index][i].tag = tmp;
+						return;
+					}
+					}
+			
+			}
+void replacementl3(unsigned long upd, struct node **l3){
+	unsigned long tmp = upd;
+	tmp = tmp >> offset;
+	int index = tmp % numset3; 
+	tmp = tmp >> check(numset3);
+	int i = 0;
+	int d=1;
+		if(replace==0){/*FIFO replacement*/
+			l3[index][i].frequency =0; 
+
+				while(d<as3){
+					l3[index][i].tag = l3[index][d].tag;
+					l3[index][i].frequency=l3[index][d].frequency;
+					i=d; d++;				
+					}
+			l3[index][i].frequency=0;
+			l3[index][i].tag=0;
+			addl3(upd,l3);
+			return;}
+
+		else{/*for LRU*/
+				i=0;
+			int lowest = l3[index][i].frequency;
+					while(i<as3){/*finding the least recently used hex*/
+						if(l3[index][i].frequency < lowest && l3[index][i].frequency!=0){
+							lowest = l3[index][i].frequency;} 						
+							i++;
+						}
+				i=0;
+				/*so temp equals the head of the file*/
+					if(l3[index][i].frequency==lowest){/*delete the head*/
+							l3[index][i].tag = tmp;
+							l3[index][i].frequency = memcount;					
+							return;					
+						}
+				else{/*not deleting the head*/
+					while(i<as3 && l3[index][i].frequency!=lowest){
+						i++;}
+						l3[index][i].frequency = memcount;
+						l3[index][i].tag = tmp;
+						return;
+					}
+					}
+			
+			}			
+	
+void replacementfullas(unsigned long upd,struct node** fullas){
+	unsigned long tmp = upd;
+	tmp = tmp >> offset;
+	int index = 0;
+	//tmp = tmp >> check(numset1);
+	int i =0;int d=1;
+	if(replace==0){/*FIFO replacement*/
+			fullas[0][i].frequency =0; 
+
+				while(d<fullasso){
+					fullas[0][i].tag = fullas[0][d].tag;
+					fullas[0][i].frequency= fullas[0][d].frequency;
+					i = d; d++			
+					}
+			fullas[0][i].frequency=0;
+			fulladd(upd,fullas);
+			return;	}
+
+	else{/*for LRU*/
+			int lowest = fullas[0][i].frequency;
+		
+		while(i<fullasso){/*finding the least recently used hex*/
+			if(fullas[0][i].frequency < lowest && fullas[0][i].frequency!=0){
+				lowest = fullas[0][i].frequency;
+					} 						
+						i++;					
+					}
+					
+				i=0;/*so this can go to the head of the file*/
+				if(fullas[0][i].frequency==lowest){/*delete the head*/
+							fullas[0][i].tag = tmp;
+							fullas[0][i].frequency = memcount;					
+					return;					
+						}
+				else{/*not deleting the head*/
+					while(i<fullasso && fullas[0][i].frequency!=lowest){
+						i++;}
+						fullas[0][i].frequency = memcount;
+						fullas[0][i].tag = tmp;
+						return;
+					}
+				}
+
+
 	}
 
 
@@ -634,69 +348,62 @@ int indexret(unsigned long upd, int numsets){
 	
 void fre(struct node **l1, struct node ** l2, struct node ** l3, struct node ** fullas){
 /*show how to free stuff*/
-
-	int i =0;int d;
 	struct node * temp;
-	struct node * next;
-		while(i<numset1){
-			temp = l1[i];
-				d=0;
+	int i =0;//int d;
+	
+	while(i<numset1){
+			//d=associates-1;
 
-				while(d<associates&&temp!=NULL){
-						next = temp->next;
-						free(temp);
-						temp= next;
-						d++;					
-					}
+			//while(d>=0){
+					//temp = &l1[i][d];
+						free(l1[i]);
+						//d--;					
+					//}
 					i++;	
 			}
 
-			free(l1);/*for l1*/
-   i =0;
+		i =0;
 		while(i<numset2){
-			temp = l2[i];
-				d=0;
+			
+				//d=as2-1;
 
-				while(d<as2&&temp!=NULL){
-						next = temp->next;
-						free(temp);
-						temp= next;
-						d++;					
-					}
+				/*while(d>=0){
+					temp = &l2[i][d];
+					free(temp);
+						d--;					
+					}*/
+					free(l2[i]);
 					i++;	
 			}
 
-			free(l2);/*for l2*/
+			/*for l2*/
  i =0;
  
  while(i<numset3){
-			temp = l3[i];
-				d=0;
+			//d=as3-1;
 
-				while(d<as3&&temp!=NULL){
-						next = temp->next;
+				/*while(d>=0){
+						temp = &l3[i][d];
 						free(temp);
-						temp= next;
-						d++;					
-					}
+						d--;					
+					}*/
+					free(l3[i]);
 					i++;	
 			}
 
-			free(l3);/*for l3*/
+			/*for l3*/
 
 i =0;	
-			temp = fullas[i];
-				d=0;
+			//d=fullasso-1;
 
-				while(d<fullasso&&temp!=NULL){
-						next = temp->next;
+				/*while(d>=0){
+					temp = &fullas[0][d];
 						free(temp);
-						temp= next;
-						d++;					
-					}
-						
+						d--;					
+					}*/
+				free(fullas[0]);		
 			
 
-			free(fullas);/*for fully associative*/
+		/*for fully associative*/
 
 	}
