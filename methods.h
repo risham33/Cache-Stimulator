@@ -19,18 +19,18 @@ int check(int che){/*check if provided input is the power of 2*/
 	}
 
 
-int fulladd(unsigned long input,struct node ** fullas){/*this method will add stuff for fully associates*/
+int fulladd(unsigned long long input,struct node ** fullas){/*this method will add stuff for fully associates*/
 		int i = 0; 
-		unsigned long tmp = input;
-		tmp = tmp>> offset;
+		unsigned long long tmp = input;
+		tmp = tmp >> offset;
 		
-		//tmp = tmp>>check(numset1);
+		tmp = tmp >> check(numset1);
 	
 		
 while(i<fullasso){
 		 
 			if(fullas[0][i].frequency==0){
-		
+
 				fullas[0][i].tag = tmp;
 			
 				fullas[0][i].frequency =memcount;
@@ -39,19 +39,37 @@ while(i<fullasso){
 				i++;
 			}
 				
-		replacementfullas(unsigned long upd, struct node ** fullas);
+	
 		return 0;
 
 
 }
 
+int checkspace(struct node ** l1){/*checking if there is space left*/
+	
+	int i =0;
+	int num =0;
+	
+	while(num<numset1){
+		
+		while(i<associates){
+			
+			if(l1[num][i].frequency==0)
+				return 1;
+			
+			
+			
+			}
+	}
+return 0;
+
+}
 
 
 
-
-int addl1(unsigned long input,struct node ** l1){/*adds a node, if it is full, it will return 0 if added, 1*/
+int addl1(unsigned long long input,struct node ** l1){/*adds a node, if it is full, it will return 0 if added, 1*/
 		int i = 0; 
-		unsigned long tmp = input;
+		unsigned long long tmp = input;
 		tmp = tmp >> offset;
 		int index = tmp % numset1;
 		tmp = tmp >> check(numset1);
@@ -59,21 +77,22 @@ int addl1(unsigned long input,struct node ** l1){/*adds a node, if it is full, i
 	while(i<associates){/*adding*/
 
 		if(l1[index][i].frequency==0){
+				
 				l1[index][i].tag = tmp;
 				l1[index][i].frequency =memcount;
-				coldmiss++;
+			
 				return 1;
 				}
 						i++;
 			}
 				
-			replacementl1(unsigned long input,struct node ** l1);
+		
 		return 0;
 
 	}
-int addl2(unsigned long input,struct node ** l2){/*adds a node, if it is full, it will return 0 if added, 1*/
+int addl2(unsigned long long input,struct node ** l2){/*adds a node, if it is full, it will return 0 if added, 1*/
 		int i = 0; 
-		unsigned long tmp = input;
+		unsigned long long tmp = input;
 		tmp = tmp >> offset;
 		int index = tmp % numset2;
 		tmp = tmp >> check(numset2);
@@ -83,19 +102,19 @@ int addl2(unsigned long input,struct node ** l2){/*adds a node, if it is full, i
 		if(l2[index][i].frequency==0){
 				l2[index][i].tag = tmp;
 				l2[index][i].frequency =memcount;
-				coldmiss2++;
+			
 				return 1;
 				}
 						i++;
 			}
 				
-		replacementl2(unsigned long input,struct node ** l2);
+		
 		return 0;
 
 	}
-int addl3(unsigned long input,struct node ** l3){/*adds a node, if it is full, it will return 0 if added, 1*/
+int addl3(unsigned long long input,struct node ** l3){/*adds a node, if it is full, it will return 0 if added, 1*/
 		int i = 0; 
-		unsigned long tmp = input;
+		unsigned long long tmp = input;
 		tmp = tmp >> offset;
 		int index = tmp % numset3;
 		tmp = tmp >> check(numset3);
@@ -105,18 +124,18 @@ int addl3(unsigned long input,struct node ** l3){/*adds a node, if it is full, i
 		if(l3[index][i].frequency==0){
 				l3[index][i].tag = tmp;
 				l3[index][i].frequency =memcount;
-				coldmiss3++;
+				
 				return 1;
 				}
 						i++;
 			}
 				
-			replacementl3(unsigned long input,struct node ** l3);
+
 		return 0;
 
 	}	
-int findl1(int setsize, unsigned long upd, 	int associate, struct node ** l1){/*true if it is found and false on if it was not found*/
-		unsigned long tmp = upd;
+int findl1(int setsize, unsigned long long int upd, 	int associate, struct node ** l1){/*true if it is found and false on if it was not found*/
+		unsigned long long int  tmp = upd;
 		tmp = tmp >> offset;
 		int index = tmp % setsize;
 		tmp = tmp >> check(setsize);
@@ -135,12 +154,13 @@ int findl1(int setsize, unsigned long upd, 	int associate, struct node ** l1){/*
 	return 0;
 }
 
-int findfull(unsigned long upd, struct node ** fullas){/*true if it is found and false on if it was not found*/
-		unsigned long tmp = upd;
-		tmp = tmp>> offset;
+int findfull(unsigned long long upd, struct node ** fullas){/*true if it is found and false on if it was not found*/
+		unsigned long long tmp = upd;
+		tmp = tmp >> offset;
 		//int index = tmp % setsize;
-		//tmp = tmp >> check(numset1);
+		tmp = tmp >> check(numset1);
 int i =0;
+
 while (i<fullasso){
 				
 			if(fullas[0][i].frequency!=0 && fullas[0][i].tag==tmp){
@@ -155,16 +175,16 @@ while (i<fullasso){
 }
 
 
-void replacementl1(unsigned long upd, struct node **l1){
-	unsigned long tmp = upd;
+void replacementl1(unsigned long long upd, struct node **l1){
+	unsigned long long tmp = upd;
 	tmp = tmp >> offset;
 	int index = tmp % numset1; 
 	tmp = tmp >> check(numset1);
 	int i = 0;
 	int d=1;
-		if(replace==0){/*FIFO replacement*/
+		if(replace==1){/*FIFO replacement*/
 			l1[index][i].frequency =0; 
-
+		
 				while(d<associates){
 					l1[index][i].tag = l1[index][d].tag;
 					l1[index][i].frequency=l1[index][d].frequency;
@@ -177,7 +197,7 @@ void replacementl1(unsigned long upd, struct node **l1){
 
 		else{/*for LRU*/
 				i=0;
-			int lowest = l1[index][i].frequency;
+			int lowest = l1[index][i].frequency; 
 					while(i<associates){/*finding the least recently used hex*/
 						if(l1[index][i].frequency < lowest && l1[index][i].frequency!=0){
 							lowest = l1[index][i].frequency;} 						
@@ -201,14 +221,14 @@ void replacementl1(unsigned long upd, struct node **l1){
 			
 			}
 
-void replacementl2(unsigned long upd, struct node **l2){
-	unsigned long tmp = upd;
+void replacementl2(unsigned long long upd, struct node **l2){
+	unsigned long long tmp = upd;
 	tmp = tmp >> offset;
 	int index = tmp % numset2; 
 	tmp = tmp >> check(numset2);
 	int i = 0;
 	int d=1;
-		if(replace==0){/*FIFO replacement*/
+		if(replace==1){/*FIFO replacement*/
 			l2[index][i].frequency =0; 
 
 				while(d<as2){
@@ -246,14 +266,14 @@ void replacementl2(unsigned long upd, struct node **l2){
 					}
 			
 			}
-void replacementl3(unsigned long upd, struct node **l3){
-	unsigned long tmp = upd;
+void replacementl3(unsigned long long upd, struct node **l3){
+	unsigned long long tmp = upd;
 	tmp = tmp >> offset;
 	int index = tmp % numset3; 
 	tmp = tmp >> check(numset3);
 	int i = 0;
 	int d=1;
-		if(replace==0){/*FIFO replacement*/
+		if(replace==1){/*FIFO replacement*/
 			l3[index][i].frequency =0; 
 
 				while(d<as3){
@@ -292,21 +312,23 @@ void replacementl3(unsigned long upd, struct node **l3){
 			
 			}			
 	
-void replacementfullas(unsigned long upd,struct node** fullas){
-	unsigned long tmp = upd;
+void replacementfullas(unsigned long long upd,struct node** fullas){
+	unsigned long long tmp = upd;
 	tmp = tmp >> offset;
-	int index = 0;
-	//tmp = tmp >> check(numset1);
+	
+	tmp = tmp >> check(numset1);
 	int i =0;int d=1;
-	if(replace==0){/*FIFO replacement*/
-			fullas[0][i].frequency =0; 
+	if(replace==1){/*FIFO replacement*/
+		//	fullas[0][i].frequency =0; 
 
 				while(d<fullasso){
 					fullas[0][i].tag = fullas[0][d].tag;
 					fullas[0][i].frequency= fullas[0][d].frequency;
-					i = d; d++			
+					i = d; d++;			
+					
 					}
 			fullas[0][i].frequency=0;
+			fullas[0][i].tag=0;
 			fulladd(upd,fullas);
 			return;	}
 
@@ -339,7 +361,7 @@ void replacementfullas(unsigned long upd,struct node** fullas){
 	}
 
 
-int indexret(unsigned long upd, int numsets){
+int indexret(unsigned long long upd, int numsets){
 		int index; 
 		upd = upd >> offset;
 		index = upd % numsets;
