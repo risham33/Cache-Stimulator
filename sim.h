@@ -1,7 +1,7 @@
 	
 struct node{
 
-unsigned long int tag;
+unsigned long long tag;
 int frequency;
 //struct node* next;
 
@@ -33,17 +33,18 @@ int coldmiss;
 int coldmiss2;
 int coldmiss3;
 int replace;
-
+int totalcapacity;
 int check(int che);
-int fulladd(unsigned long input,struct node ** fullas);
-int addl1(unsigned long input,struct node ** l1);
-int addl2(unsigned long input,struct node ** l2);
-int addl3(unsigned long input,struct node ** l3);
-int findl1(int setsize, unsigned long upd,int associate,struct node ** l1);
-int findfull(unsigned long upd, struct node ** fullas);
-void replacementl1(unsigned long upd,struct node ** l1);
-void replacementl2(unsigned long upd,struct node ** l2);
-void replacementl3(unsigned long upd,struct node ** l3);
-void replacementfullas(unsigned long upd,struct node ** fullas);
-int indexret(unsigned long upd, int numsets);
+int fulladd(unsigned long long input,struct node ** fullas);
+
+int addl1(unsigned long long input,struct node ** l1);
+int addl2(unsigned long long input,struct node ** l2);
+int addl3(unsigned long long input,struct node ** l3);
+int findl1(int setsize, unsigned long long upd,int associate,struct node ** l1);
+int findfull(unsigned long long upd, struct node ** fullas);
+void replacementl1(unsigned long long upd,struct node ** l1);
+void replacementl2(unsigned long long upd,struct node ** l2);
+void replacementl3(unsigned long long upd,struct node ** l3);
+void replacementfullas(unsigned long long upd,struct node ** fullas);
+int indexret(unsigned long long upd, int numsets);
 void fre(struct node ** l1, struct node ** l2, struct node ** l3, struct node ** fullas);
