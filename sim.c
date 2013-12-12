@@ -45,11 +45,12 @@ while(i<argc){ /*scanning values*/
 			}
 				
 		}/*l1 if statements ends*/
-	else if(strcmp(argv[i],"-l2size")==0){
+	if(strcmp(argv[i],"-l2size")==0){
 		size2 = atoi (argv[i+1]);		
 		}
 	else if(strcmp(argv[i],"-l2assoc")==0){
-		if(strcmp(argv[i+1],"direct")){
+		if(strcmp(argv[i+1],"direct")==0){
+			numset2=1;
 			as2 = 1;
 			}
 		else if(strcmp(argv[i+1],"assoc")==0){
@@ -81,7 +82,7 @@ while(i<argc){ /*scanning values*/
 i++;
 }
 
-
+//printf("%d %d ",numset2,as2);
 
 if(block==0){ /*error check*/
 			fprintf(stderr,"ERROR: INCORRECT INPUT\n");
@@ -93,11 +94,12 @@ if(numset1 == 1){/*number of set for l1 == 1, fully assoc*/
 	} 
 else if(associates==1){/*number of set l1 is direct*/
 	numset1 = size1/block;
-	if(numset1>1) fullasso=numset1*associates;
+	if(numset1>1)
+	fullasso=size1/block;
 	}	
 else if (associates>1){ /*else its set assoc*/
 	numset1 = size1/(block*associates);
-	if(numset1>1)	fullasso = numset1*associates;
+	if(numset1>1)	fullasso = size1/block;
 	}	
 if(numset2==1){/*l2 assoc*/
 	as2 = size2/block;
@@ -119,7 +121,7 @@ else if (as3>1){/*l3 set assoc*/
 	}	
 
 offset = check(block); /*setting offset*/
-
+totalcapacity = numset1*associates;
 
 		if(numset1==0||numset2==0||numset3==0||associates==0||as2==0||as3==0||check(numset1)==-1||check(numset2)==-1||check(numset3)==-1||offset==-1){
 		
@@ -137,7 +139,7 @@ offset = check(block); /*setting offset*/
 		}
 
 		memcount =0;/*keep track of memory accesses*/
-		unsigned long temp; /*this would store and read hexadecimeals from text*/
+		unsigned long long temp; /*this would store and read hexadecimeals from text*/
 
 		if(size1<block || size2<block || size3<block||size1>size2||size2>size3||size1>size3){
 			fprintf(stderr,"ERROR: size is smaller \n");
@@ -164,6 +166,8 @@ offset = check(block); /*setting offset*/
 					
 					}
 		
+//printf("%d %d %d %d %d\n",numset2,numset3,as2,as3,fullasso);
+
 			struct node ** l2 = (struct node **) malloc(sizeof(struct node *)*numset2);
 					num = 0;
 				while(num<numset2){ /*l2 memory allocation*/
@@ -175,6 +179,7 @@ offset = check(block); /*setting offset*/
 						l2[num][associat].frequency = 0;
 						l2[num][associat].tag=0;
 						associat++;
+						//printf("%d\n",associat);
 						}
 					num++;
 					
@@ -198,7 +203,7 @@ offset = check(block); /*setting offset*/
 					}
 		
 
-			struct node ** fullas = (struct node **) malloc(sizeof(struct node *)*fullasso);
+			struct node ** fullas = (struct node **) malloc(sizeof(struct node *));
 		if(numset1>1){/*memory for fully l1 associate*/
 					fullas[0]=malloc(sizeof(struct node)*fullasso);
 					fullas[0][0].frequency = 0;
@@ -207,37 +212,56 @@ offset = check(block); /*setting offset*/
 					while(associat<fullasso){
 					fullas[0][associat].frequency = 0;
 					fullas[0][associat].tag=0;
+				//	printf("%d \n",associat);
 					associat++;
 						}
 							
 					}
 	
 			missesl1 = 0; missesl2 =0; missesl3 = 0; hitsl1 =0 ; hitsl2 =0; hitsl3 = 0 ; coldmiss = 0; coldmiss2 = 0; coldmiss3 = 0;	
-		`	int check = 0;
+			int check = 0; int count= 0; 
 
-while(fscanf(pfi,"%lx",&temp)!=EOF){
+while(fscanf(pfi,"%llx",&temp)!=EOF){
 			memcount++;
-
 			check = findl1(numset1,temp,associates,l1);
-	
 			if(check==1){/*l1 hit and over*/
 				hitsl1++;
 				continue;				
 				}
 
-			else{missesl1++;
-				addl1(temp,l1);					
-					}	
+			else {/*l1 misses*/
+					missesl1++;
+					check = addl1(temp,l1);
+					if(check==1){
+						coldmiss++;
+						}else{
+							
+							//if(numset1>1){
+								//check = checkspace(l1);
 
-		if(numset1>1){/*for fully associative l1*/
-				check = findfull(temp,fullas);
-					if(check==0){/*you want to add to fully associate*/	
-						check = fulladd(temp,fullas);
-								if(check==0){
-							capacity++;
-									}
-						}
-			}
+								//if(check==1){
+								//	conflict++;}
+								//else{
+								//	capacity++;}
+
+				//	}
+						replacementl1(temp,l1);
+							}
+						}	
+	//	if(totalcapacity==0) count++;
+
+
+		//if(numset1>1){
+		//	check = findfull(temp,fullas);
+			//	if(check==0){/*you want to add to fully associate*/	
+			//		check = fulladd(temp,fullas);
+			//			if(check==0){
+			//				capacity++;
+				//			replacementfullas(temp,fullas);
+					//		}
+			//		}
+					
+	//}
 		check = findl1(numset2,temp,as2,l2);
 
 			if(check ==1){/*finiding stuff in l2*/
@@ -247,9 +271,19 @@ while(fscanf(pfi,"%lx",&temp)!=EOF){
 			
 			else {
 				missesl2++;
-				addl2(temp,l2);
+				
+				check = addl2(temp,l2);
+
+				if(check == 1){
+					coldmiss2++;
+					}
+				else{
+
+					replacementl2(temp,l2);
 					}	
 			/*	check = findl1(numset3,temp,l3);*/
+				}
+
 			check = findl1(numset3,temp,as3,l3);
 			
 			if(check==1){
@@ -260,20 +294,26 @@ while(fscanf(pfi,"%lx",&temp)!=EOF){
 			else{
 				missesl3++;
 
-				addl3(temp,l3);
+				check = addl3(temp,l3);
 
-				
+				if(check==1){
+					coldmiss3++;					
+					}
+				else{
+					replacementl3(temp,l3);
+					}
+					}
 				}
-
-			}
 
 		conflict =0;
 			
-			if(numset1>1){				
-				conflict = missesl1 - capacity - coldmiss;
-						}
-			else{
-				capacity = missesl1 - coldmiss;
+//		printf("%d",count);
+	//	if(numset1>1){				
+		//		conflict = missesl1 - capacity - coldmiss;
+					//	}
+		//else{
+			if(numset1==1){
+			capacity = missesl1 - coldmiss;
 				}
 
 			fclose(pfi);
